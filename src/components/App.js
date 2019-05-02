@@ -2,15 +2,16 @@ import React from 'react';
 import APIfootball from '../APIs/APIfootball'
 import TeamList from './TeamList'
 
-var team_list = []
-// var team_list = APIfootball.get('v2.0/standings/season/12963').then( function(resp){
-//     //resp.data will contain your data
-//     //resp.meta will contain the meta informations
-//     console.log(resp.data[0].standings.data);
-//      return resp.data[0].standings.data
-//   });
 class App extends React.Component{
-  state = {teams: team_list}
+  state = {teams: []}
+  componentDidMount(){
+    this.team_list()
+  }
+  team_list = async term=>{
+    const response = await APIfootball.get('v2.0/standings/season/12963')
+    this.setState({teams : response.data[1].standings.data})
+  }
+  
   
   render(){
     return (
@@ -20,16 +21,17 @@ class App extends React.Component{
               <tr>
                 <th>position</th>
                 <th>name</th>
-                <th>points</th>
+                <th>games</th>
                 <th>W</th>
                 <th>D</th>
                 <th>L</th>
+                <th>points</th>
                 <th>goals</th>
                 <th>conceded</th>
                 <th>goal difference</th>
               </tr>
             </thead>
-            <TeamList></TeamList>
+            <TeamList teams= {this.state.teams}></TeamList>
           </table>
       </div>
     )
