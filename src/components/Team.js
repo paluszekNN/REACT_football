@@ -4,7 +4,7 @@ const Team = ({team, onTeamSelect}) =>{
     return(
         <tr>
             <td>{team.position}</td>
-            <td><button className="ui button blue" onClick={()=>onTeamSelect(team.team_name)}>{team.team_name}</button></td>
+            <td><button style={{width:150}} className="ui button blue" onClick={()=>onTeamSelect(team.team_name)}>{team.team_name}</button></td>
             <td>{team.overall.games_played}</td>
             <td>{team.overall.won}</td>
             <td>{team.overall.draw}</td>
